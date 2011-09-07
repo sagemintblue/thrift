@@ -1,12 +1,20 @@
 /*
- * Licensed to the Apache Software Foundation (ASF) under one or more contributor license
- * agreements. See the NOTICE file distributed with this work for additional information regarding
- * copyright ownership. The ASF licenses this file to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance with the License. You may obtain a
- * copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
- * law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
- * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
- * for the specific language governing permissions and limitations under the License.
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements. See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership. The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 package org.apache.thrift;
 
@@ -22,7 +30,7 @@ import junit.framework.TestCase;
 
 public class TestTBaseHelper extends TestCase {
   public void testByteArrayComparison() {
-    assertTrue(TBaseHelper.compareTo(new byte[] { 'a', 'b' }, new byte[] { 'a', 'c' }) < 0);
+    assertTrue(TBaseHelper.compareTo(new byte[]{'a','b'}, new byte[]{'a','c'}) < 0);
   }
 
   public void testSets() {
@@ -52,10 +60,10 @@ public class TestTBaseHelper extends TestCase {
     Set<List<String>> a = new HashSet<List<String>>();
     Set<List<String>> b = new HashSet<List<String>>();
 
-    a.add(Arrays.asList(new String[] { "a", "b" }));
-    b.add(Arrays.asList(new String[] { "a", "b", "c" }));
-    a.add(Arrays.asList(new String[] { "a", "b" }));
-    b.add(Arrays.asList(new String[] { "a", "b", "c" }));
+    a.add(Arrays.asList(new String[] {"a","b"}));
+    b.add(Arrays.asList(new String[] {"a","b", "c"}));
+    a.add(Arrays.asList(new String[] {"a","b"}));
+    b.add(Arrays.asList(new String[] {"a","b", "c"}));
 
     assertTrue(TBaseHelper.compareTo(a, b) < 0);
   }
@@ -83,10 +91,10 @@ public class TestTBaseHelper extends TestCase {
 
     assertTrue(TBaseHelper.compareTo(a, b) == 0);
 
-    a.put(new byte[] { 'a', 'b' }, 1000L);
-    b.put(new byte[] { 'a', 'b' }, 1000L);
-    a.put(new byte[] { 'a', 'b', 'd' }, 1000L);
-    b.put(new byte[] { 'a', 'b', 'a' }, 1000L);
+    a.put(new byte[]{'a','b'}, 1000L);
+    b.put(new byte[]{'a','b'}, 1000L);
+    a.put(new byte[]{'a','b', 'd'}, 1000L);
+    b.put(new byte[]{'a','b', 'a'}, 1000L);
     assertTrue(TBaseHelper.compareTo(a, b) > 0);
   }
 
@@ -126,15 +134,15 @@ public class TestTBaseHelper extends TestCase {
     if (TBaseHelper.compareTo(a, b) != 0)
       throw new RuntimeException("Set compare failed:" + a + " vs. " + b);
 
-    a.add(new byte[] { 'a', 'b' });
-    b.add(new byte[] { 'a', 'b' });
-    a.add(new byte[] { 'a', 'b', 'd' });
-    b.add(new byte[] { 'a', 'b', 'a' });
+    a.add(new byte[]{'a','b'});
+    b.add(new byte[]{'a','b'});
+    a.add(new byte[]{'a','b', 'd'});
+    b.add(new byte[]{'a','b', 'a'});
     assertTrue(TBaseHelper.compareTo(a, b) > 0);
   }
 
   public void testByteBufferToByteArray() throws Exception {
-    byte[] b1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+    byte[] b1 = {10,9,8,7,6,5,4,3,2,1,0};
     byte[] b2 = TBaseHelper.byteBufferToByteArray(ByteBuffer.wrap(b1));
     assertEquals("b1 and b2 should be the exact same array (identity) due to fast path", b1, b2);
 
@@ -152,7 +160,7 @@ public class TestTBaseHelper extends TestCase {
   }
 
   public void testCopyBinaryWithByteBuffer() throws Exception {
-    byte[] bytes = new byte[] { 0, 1, 2, 3, 4, 5 };
+    byte[] bytes = new byte[]{0, 1, 2, 3, 4, 5};
     ByteBuffer b = ByteBuffer.wrap(bytes);
     ByteBuffer bCopy = TBaseHelper.copyBinary(b);
     assertEquals(b, bCopy);
@@ -174,15 +182,15 @@ public class TestTBaseHelper extends TestCase {
     b.reset();
     assertEquals(0, b.position());
 
-    assertNull(TBaseHelper.copyBinary((ByteBuffer) null));
+    assertNull(TBaseHelper.copyBinary((ByteBuffer)null));
   }
 
   public void testCopyBinaryWithByteArray() throws Exception {
-    byte[] bytes = new byte[] { 0, 1, 2, 3, 4, 5 };
+    byte[] bytes = new byte[]{0, 1, 2, 3, 4, 5};
     byte[] copy = TBaseHelper.copyBinary(bytes);
     assertEquals(ByteBuffer.wrap(bytes), ByteBuffer.wrap(copy));
     assertNotSame(bytes, copy);
 
-    assertNull(TBaseHelper.copyBinary((byte[]) null));
+    assertNull(TBaseHelper.copyBinary((byte[])null));
   }
 }
