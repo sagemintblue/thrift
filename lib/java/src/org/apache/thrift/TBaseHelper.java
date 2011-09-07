@@ -199,7 +199,6 @@ public final class TBaseHelper {
    * Comparator to compare items inside a structure (e.g. a list, set, or map).
    */
   private static class NestedStructureComparator implements Comparator {
-    @Override
     public int compare(Object oA, Object oB) {
       if (oA == null && oB == null) {
         return 0;
