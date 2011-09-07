@@ -199,6 +199,7 @@ public final class TBaseHelper {
    * Comparator to compare items inside a structure (e.g. a list, set, or map).
    */
   private static class NestedStructureComparator implements Comparator {
+    @Override
     public int compare(Object oA, Object oB) {
       if (oA == null && oB == null) {
         return 0;
@@ -223,12 +224,12 @@ public final class TBaseHelper {
   public static void toString(ByteBuffer bb, StringBuilder sb) {
     byte[] buf = bb.array();
 
-    int arrayOffset = bb.arrayOffset();
+    int offset = bb.position();
     int origLimit = bb.limit();
-    int limit = (origLimit - arrayOffset > 128) ? arrayOffset + 128 : origLimit;
+    int limit = (origLimit - offset > 128) ? offset + 128 : origLimit;
 
-    for (int i = arrayOffset; i < limit; i++) {
-      if (i > arrayOffset) {
+    for (int i = offset; i < limit; i++) {
+      if (i > offset) {
         sb.append(" ");
       }
       sb.append(paddedByteString(buf[i]));
