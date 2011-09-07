@@ -223,8 +223,9 @@ public final class TBaseHelper {
   public static void toString(ByteBuffer bb, StringBuilder sb) {
     byte[] buf = bb.array();
 
-    int offset = bb.position();
-    int origLimit = bb.limit();
+    int arrayOffset = bb.arrayOffset();
+    int offset = arrayOffset + bb.position();
+    int origLimit = arrayOffset + bb.limit();
     int limit = (origLimit - offset > 128) ? offset + 128 : origLimit;
 
     for (int i = offset; i < limit; i++) {
